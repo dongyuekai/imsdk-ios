@@ -13,38 +13,53 @@ target 'IMSDK-iOS' do
 
   # Pods for IMSDK-iOS
 
-    pod 'QIMUIKit', '~> 2.0'
+    # pod 'QIMUIKit', '~> 2.0'
+
+    $debug = ENV['debug']
+    if $debug
+      puts '本地debug方式'
+      pod 'QIMUIKit/QIMUIKit-NORN', path: './libqimuikit-ios'
+      pod 'QIMGeneralModule', path: './libqimgeneralmodule-ios'
+      pod 'QIMCommon', path: './libqimcommon-ios'
+      pod 'QIMKitVendor', path: './libqimkitvendor-ios'
+      pod 'QIMDataBase', path: './libqimdatabase-ios'
+      pod 'QIMCommonCategories', path: './libqimcommoncategories-ios'
+      pod 'QIMOpenSSL', path: './libqimopenssl-ios'
+    else
+      puts '线上release方式'
+      pod 'QIMUIKit', '~>2.0'
+    end
 
     project 'IMSDK-iOS.project'
     # 取决于你的工程如何组织，你的node_modules文件夹可能会在别的地方。
     # 请将:path后面的内容修改为正确的路径。
 
-    pod 'yoga', :path => './node_modules/react-native/ReactCommon/yoga'
+    # pod 'yoga', :path => './node_modules/react-native/ReactCommon/yoga'
     # Third party deps podspec link
-    pod 'Folly', :podspec => './node_modules/react-native/third-party-podspecs/Folly.podspec'
+    # pod 'Folly', :podspec => './node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-    pod 'React',
-    :path => './node_modules/react-native',
-    :subspecs => [
-    'Core',
-    'RCTImage',
-    'RCTNetwork',
-    'RCTText',
-    'RCTWebSocket',
-    'RCTLinkingIOS',
-    'RCTSettings',
-    'RCTVibration',
-    'RCTAnimation',
-    'ART',
-    'RCTGeolocation',
-    'RCTActionSheet',
-    'DevSupport',
-    'CxxBridge',
+    # pod 'React',
+    # :path => './node_modules/react-native',
+    # :subspecs => [
+    # 'Core',
+    # 'RCTImage',
+    # 'RCTNetwork',
+    # 'RCTText',
+    # 'RCTWebSocket',
+    # 'RCTLinkingIOS',
+    # 'RCTSettings',
+    # 'RCTVibration',
+    # 'RCTAnimation',
+    # 'ART',
+    # 'RCTGeolocation',
+    # 'RCTActionSheet',
+    # 'DevSupport',
+    # 'CxxBridge',
     # 添加其他你想在工程中使用的依赖。
-    ]
-    pod 'react-native-image-picker', :path => './node_modules/react-native-image-picker'
-    pod 'RNSVG', :path => './node_modules/react-native-svg'
-    pod 'RNVectorIcons', :path => './node_modules/react-native-vector-icons'
+    # ]
+    # pod 'react-native-image-picker', :path => './node_modules/react-native-image-picker'
+    # pod 'RNSVG', :path => './node_modules/react-native-svg'
+    # pod 'RNVectorIcons', :path => './node_modules/react-native-vector-icons'
 
 end
 
@@ -67,7 +82,7 @@ post_install do |installer_representation|
 
         target.build_configurations.each do |config|
             config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
-            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = '$(inherited) COCOAPODS=1 QIMWebRTCEnable=1 QIMNoteEnable=1 QIMAudioEnable=1 QIMZipEnable=1 QIMPinYinEnable=1, QIMRNEnable=1'
+            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = '$(inherited) COCOAPODS=1 QIMWebRTCEnable=1 QIMNoteEnable=1 QIMAudioEnable=1 QIMZipEnable=1 QIMPinYinEnable=1'
         end
     end
 end

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <EventKit/EventKit.h>
-#import <React/RCTLog.h>
+//#import <React/RCTLog.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AVFoundation/AVFoundation.h>
 #include <sys/socket.h> // Per msqr
